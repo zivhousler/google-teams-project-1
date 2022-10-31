@@ -4,5 +4,6 @@
 /workspace.xml
 .idea/*
 *.xml
+!pom.xml
 *.iml
 

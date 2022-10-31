@@ -1,5 +1,6 @@
 package client;
 
+import controllers.AuthController;
 import controllers.UserController;
 
 public class Main {
@@ -23,8 +24,8 @@ public class Main {
         String password = "123456789";
         String name = "Hello World";
         //
-//         AuthController ac = new AuthController();
-//         String token = ac.loginUser(email, password); -> Expect to get an exception in return
+         AuthController ac = AuthController.getInstance();
+         String token = ac.loginUser(email, password);
         //
         UserController uc = new UserController();
         System.out.println(uc.createNewAccount(email, password, name));
