@@ -18,11 +18,11 @@ public class User {
         this.creationDate = LocalDate.now();
     }
 
-    public User createUser(String name, String email, String password) {
+    public static User createUser(String name, String email, String password) {
         return new User(name, email, password);
     }
 
-    public User createRandomUser() {
+    public static User createRandomUser() {
         return new User(RandomData.generateRandomName(), RandomData.generateRandomName(), String.valueOf(RandomData.generateRandomNumber(10000000, 99999999)));
     }
 

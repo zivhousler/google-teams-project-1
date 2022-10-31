@@ -1,11 +1,11 @@
 package client;
 
+import controllers.Actions;
 import controllers.AuthController;
 import controllers.UserController;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("hey");
         // FADI
         // call the userController (create a new object of userController -> UserController uc = new UserController
         // uc.createNewUser // uc.createAccount (email, password, name)
@@ -23,19 +23,19 @@ public class Main {
         String email = "ziv@gmail.com";
         String password = "123456789";
         String name = "Hello World";
-        //
-         AuthController ac = AuthController.getInstance();
-         String token = ac.loginUser(email, password);
-        //
-        UserController uc = new UserController();
-        System.out.println(uc.createNewAccount(email, password, name));
-        //
-        // AuthController ac = new AuthController();
-        // String token = ac.loginUser(email, password); -> Expect to receive a token this time
-        //
-        //   uc.editInfo(token, email, Actions.EDIT_PASSWORD);            //
-        //   uc.editInfo(token, name, Actions.EDIT_NAME);                 // TODO: implement enum function
-        //   uc.editInfo(token, email, password, Actions.DELETE_ACCOUNT); //
+
+        AuthController ac = AuthController.getInstance();
+        System.out.println(ac.loginUser(email, password));
+
+        UserController uc = UserController.getInstance();
+        System.out.println(uc.createAccount(email, password, name));
+
+        String token = ac.loginUser(email, password);
+        System.out.println(token);
+
+        uc.manipulateUserData(token, Actions.EDIT_PW, password); //
+        uc.manipulateUserData(token, Actions.EDIT_NAME, name);   // TODO: implement enum function
+        uc.manipulateUserData(token, Actions.EDIT_EMAIL, email); //
 
         // // AuthController class has to receive the data from the client, validate it in order to check
         // // if it answers the regex from email and password.
@@ -45,6 +45,7 @@ public class Main {
         //      AuthService as = new AuthService();
         //      return as.validateUserLogin(email, password);
         // }
+        // DONE!
 
         // // UserController class is responsible only for validating the information it receives from the client.
         // // -> UserController
@@ -60,7 +61,9 @@ public class Main {
         // public Boolean isValidData(String email, String password, String name){
         //      // return if the data is validated
         // }
-        // public int editInfo(
+        // public Boolean editInfo(){
+        //      // return ture or false if it worked
+        // }
 
         // // UserService class has to communicate directly with our database in order to manipulate it.
         // // Among the functionality: ask for users from the db, request a register for new users in the db,
@@ -113,3 +116,4 @@ public class Main {
         // }
     }
 }
+

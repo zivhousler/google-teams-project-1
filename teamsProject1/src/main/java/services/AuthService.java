@@ -10,32 +10,52 @@ import java.util.Map;
 public class AuthService {
 
     private static AuthService instance;
+    private Map<String, String> usersTokens; // Map<email, token>
 
     public static AuthService getInstance() {
-        return instance == null ? new AuthService() : instance;
+        if (instance == null) {
+            instance = new AuthService();
+        }
+        return instance;
     }
 
     private AuthService() {
+        usersTokens = new HashMap<>();
     }
 
-     public static Map<String,String> usersTokens = new HashMap<>();
+    public String generateToken() {
+        String token = null;
+        boolean flag = false;
+        while (!flag) {
+            token = RandomData.generateRandomToken();
+            if (!usersTokens.values().contains(token)) {
+                flag = true;
+            }
+        }
+        return token;
+    }
 
-//     public String authUser(String email){
-//          String token;
-//          boolean flag = false;
-//          while(!flag){
-//              token = String.valueOf(RandomData.generateRandomNumber(100000000,999999999));
-//              if(!usersTokens.contains(token)) {
-//                  usersTokens.put(email, token);
-//                  flag = true;
-//          }
-//          return token;
-//     }
 
-     public String validateUserLogin(String email, String password){
-          UserRepo udb = UserRepo.getInstance();
-          Map<String,String> usersMap = udb.getAllUsers();
+    public Boolean validateUserLogin(String email, String password) {
+        UserRepo udb = UserRepo.getInstance();
+        // check if there is a user with the same email and password in the db!
+        Map<String, String> usersMap = udb.getAllUsers();
 //          return udb.filter(user -> user.getEmail().equals(email) && user.getPassword().equals(password)).findFirst().get();
-         return "abc";
-     }
+        return true;
+    }
+
+    public String giveTokenToUser(String email) {
+        if (usersTokens.containsKey(email)) return usersTokens.get(email);
+        String token = generateToken();
+        usersTokens.put(email, token);
+        return token;
+    }
+
+    public Boolean validateUser(String token) {
+        // make sure there is only one instance of this token in the map:
+        Integer instances = usersTokens.values().stream().filter(userToken -> token.equals(userToken)).toArray().length;
+        if (instances == 1) return true;
+        return false;
+
+    }
 }

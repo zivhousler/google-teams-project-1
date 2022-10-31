@@ -1,5 +1,6 @@
 package databases;
 
+import controllers.AuthController;
 import entities.User;
 
 import java.util.HashMap;
@@ -7,10 +8,13 @@ import java.util.Map;
 
 public class UserRepo {
 
-    private static UserRepo repo;
+    private static UserRepo instance;
 
     public static UserRepo getInstance() {
-        return repo == null ? new UserRepo() : repo;
+        if (instance == null) {
+            instance = new UserRepo();
+        }
+        return instance;
     }
 
     private UserRepo() {
@@ -23,5 +27,10 @@ public class UserRepo {
      public Map<String,String> getAllUsers(){
           // TODO: get all the users from the db and return them in a map of <email:password>
          return new HashMap<String,String>();
+     }
+
+     public Boolean editUserInfo(String info){
+         //.......
+         return true;
      }
 }

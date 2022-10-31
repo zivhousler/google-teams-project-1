@@ -1790,6 +1790,10 @@ public class RandomData {
         return ThreadLocalRandom.current().nextInt(min, max);
     }
 
+    public static String generateRandomToken(){
+        return String.valueOf(generateRandomNumber(100000000, 999999999));
+    }
+
     public static String[] generateRandomShirts(int amount) {
         int rand;
         String[] shirts = new String[amount];
