@@ -3,9 +3,13 @@ package client;
 import controllers.Actions;
 import controllers.AuthController;
 import controllers.UserController;
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
+import java.util.Objects;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ParseException {
         // FADI
         // call the userController (create a new object of userController -> UserController uc = new UserController
         // uc.createNewUser // uc.createAccount (email, password, name)
@@ -22,27 +26,34 @@ public class Main {
         // // -> Client//
         String email = "ziv@gmail.com";
         String password = "123456789";
-        String name = "Hello World";
-
-        AuthController ac = AuthController.getInstance();
-        System.out.println(ac.loginUser(email, password));
+        String name = "asdasd";
 
         UserController uc = UserController.getInstance();
-        System.out.println(uc.createAccount(email, password, name));
+        AuthController ac = AuthController.getInstance();
 
-        String token = ac.loginUser(email, password);
-        System.out.println(token);
+        String newPassword = "999999";
+        String newName = "haha";
+        String newEmail = "email@email.com";
 
-        try{
-            //
-            uc.manipulateUserData(token, Actions.EDIT_PW, password); //
-            uc.manipulateUserData(token, Actions.EDIT_NAME, name);   // TODO: implement enum function
-            uc.manipulateUserData(token, Actions.EDIT_EMAIL, email); //
+        try {
 
+            System.out.println(uc.createAccount(email, password, name));
+            String token = Objects.requireNonNull(ac.loginUser(email, password));
+            System.out.println("token: " + token);
+
+            uc.manipulateUserData(token, Actions.EDIT_PW, newPassword); //
+            uc.manipulateUserData(token, Actions.EDIT_NAME, name);      // TODO: implement enum function
+            uc.manipulateUserData(token, Actions.EDIT_EMAIL, email);    //
             uc.manipulateUserData(token, Actions.DELETE_USER, email);
-        } catch(Exception e){
+
+        } catch (IOException e) {
+            System.out.println(e);
+        } catch (IllegalAccessException e) {
+            System.out.println(e);
+        } catch (NullPointerException e) {
             System.out.println(e);
         }
+
 
         // // AuthController class has to receive the data from the client, validate it in order to check
         // // if it answers the regex from email and password.

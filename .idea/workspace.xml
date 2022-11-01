@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4ad829f6-c479-4178-b9cb-09aa2b0fda81" name="Changes" comment="Resetting main branch with all the features">
+      <change beforePath="$PROJECT_DIR$/teamsProject1/src/main/java/client/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/teamsProject1/src/main/java/client/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teamsProject1/src/main/java/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/teamsProject1/src/main/java/controllers/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teamsProject1/src/main/java/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/teamsProject1/src/main/java/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teamsProject1/src/main/java/databases/UserRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/teamsProject1/src/main/java/databases/UserRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teamsProject1/src/main/java/services/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/teamsProject1/src/main/java/services/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teamsProject1/src/main/java/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/teamsProject1/src/main/java/services/UserService.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2GwAAwd91cAFgEcPz6ZCjd1dPMa" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Saray/Desktop/google-teams-project-1/teamsProject1/src/main/java/databases/userDB&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Saray\Desktop\google-teams-project-1\teamsProject1\src\main\java\databases\userDB" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="client.Main" />
+      <module name="teamsProject1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4ad829f6-c479-4178-b9cb-09aa2b0fda81" name="Changes" comment="" />
+      <created>1667289133911</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1667289133911</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Resetting main branch with all the features">
+      <created>1667307877369</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1667307877369</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Resetting main branch with all the features">
+      <created>1667308064884</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1667308064884</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Resetting main branch with all the features" />
+    <option name="LAST_COMMIT_MESSAGE" value="Resetting main branch with all the features" />
+  </component>
+</project>

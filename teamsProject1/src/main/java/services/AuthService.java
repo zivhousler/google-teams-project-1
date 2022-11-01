@@ -2,10 +2,14 @@ package services;
 
 import controllers.AuthController;
 import databases.UserRepo;
+import org.json.simple.parser.ParseException;
 import utils.RandomData;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 
 public class AuthService {
 
@@ -36,12 +40,9 @@ public class AuthService {
     }
 
 
-    public Boolean validateUserLogin(String email, String password) {
-        UserRepo udb = UserRepo.getInstance();
-        // check if there is a user with the same email and password in the db!
-        Map<String, String> usersMap = udb.getAllUsers();
-//          return udb.filter(user -> user.getEmail().equals(email) && user.getPassword().equals(password)).findFirst().get();
-        return true;
+    public Boolean validateUserLogin(String email, String password) throws IOException, ParseException {
+        UserRepo ur = UserRepo.getInstance();
+        return ur.verifyUserInfo(email, password);
     }
 
     public String giveTokenToUser(String email) {
@@ -54,8 +55,20 @@ public class AuthService {
     public String validateUser(String token) {
         // make sure there is only one instance of this token in the map:
         Integer instances = usersTokens.values().stream().filter(userToken -> token.equals(userToken)).toArray().length;
-        if (instances == 1) return usersTokens.values().stream().filter(userToken -> token.equals(userToken)).findFirst().get();
+        if (instances == 1) return Objects.requireNonNull(getEmailByToken(token));
         return null;
 
+    }
+
+    public String getEmailByToken(String token){
+        String email = null;
+        Iterator<Map.Entry<String,String>> iterator = usersTokens.entrySet().iterator();
+        while(iterator.hasNext()){
+            Map.Entry<String,String> entry = iterator.next();
+            if(entry.getValue().equals(token)) {
+                email = entry.getKey();
+            }
+        }
+        return email;
     }
 }

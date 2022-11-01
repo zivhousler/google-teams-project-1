@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class UserRepo {
 
@@ -25,26 +26,7 @@ public class UserRepo {
         return instance;
     }
 
-    private UserRepo() {
-    }
-
-    public Boolean addUserToDb(User user) {
-        // TODO: write the new user to a new file!
-        return true;
-    }
-
-    public Map<String, String> getAllUsers() {
-        // TODO: get all the users from the db and return them in a map of <email:password>
-        return new HashMap<String, String>();
-    }
-
-    public Boolean editUserInfo(String info) {
-        //.......
-        return true;
-    }
-
-
-    public void writeJsonToFile(String filename, HashMap<String, String> content) { //write to json file
+    public void writeJsonToFile(String filename, HashMap<String, String> content) {
         Gson gson = new Gson();
         writeToFile(filename, gson.toJson(content));
     }
@@ -57,7 +39,7 @@ public class UserRepo {
         }
     }
 
-    public boolean addUserToData(String email, String password, String name) throws IllegalAccessException {
+    public boolean addUserToData(String email, String password, String name) {
         HashMap<String, String> mapToJson = new HashMap<String, String>();
         try {
 
@@ -72,24 +54,33 @@ public class UserRepo {
             writeJsonToFile(filename, mapToJson);
 
             return true;
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             return false;
         }
     }
 
-    //TODO: reade data from file//
-    //TODO: write user to file//
-    //TODO: delete user from file//
-    //TODO: update user from file//
-    //TODO: checks if user exist by id or mail
-    //TODO: add all user's to data and to map<String, User>//
+    public boolean checkIfUserExistByEmail(String userEmail) throws IOException, ParseException {
+        Map<String, User> allAsers = getAllUsersFromDatabase();
+        for (String email : allAsers.keySet()) {
+            if (email.equals(userEmail))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean verifyUserInfo(String email, String password) throws IOException, ParseException {
+        Map<String, User> allAsers = getAllUsersFromDatabase();
+        User user = allAsers.get(email);
+        if(user == null) return false;
+        return user.getPassword().equals(password);
+    }
 
     public void readUser(String filename, HashMap<String, String> content) { //write to json file
         Gson gson = new Gson();
         writeToFile(filename, gson.toJson(content));
     }
 
-    public static Map<String, User> getAllUsersFromDatabase() throws IOException, ParseException {
+    public  Map<String, User> getAllUsersFromDatabase() throws IOException, ParseException {
         Map<String, User> usersMap = new HashMap<>(); // <email, User>
         Path dir = Paths.get(".\\teamsProject1\\src\\main\\java\\databases\\userDB\\");
         JSONParser jsonParser = new JSONParser();
@@ -108,27 +99,20 @@ public class UserRepo {
                 reader.close();
             }
         }
-
         return usersMap;
     }
 
-    public boolean updateUser(User user) throws IOException, IllegalAccessException {
+    public boolean updateUser(User user) {
         return addUserToData(user.getEmail(), user.getPassword(), user.getName());
     }
 
-
     public void deleteUser(String email) { //write to json file
-        try {
 
-            File f = new File(".\\teamsProject1\\src\\main\\java\\databases\\userDB\\" + email + ".json");           //file to be delete
-            if (f.delete()) {
-                System.out.println(f.getName() + " deleted");   //getting and printing the file name
-            } else {
-                System.out.println("failed");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        File f = new File(".\\teamsProject1\\src\\main\\java\\databases\\userDB\\" + email + ".json");           //file to be delete
+        if (f.delete()) {
+            System.out.println(f.getName() + " deleted");   //getting and printing the file name
+        } else {
+            System.out.println("cant delete user !");
         }
     }
-
 }

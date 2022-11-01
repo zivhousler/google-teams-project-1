@@ -3,6 +3,7 @@ package services;
 import controllers.Actions;
 import databases.UserRepo;
 import entities.User;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -23,12 +24,23 @@ public class UserService {
     }
 
     private UserService() {
-        users = new HashMap<>(); // TODO: -> need to draw all users from our files!!!
+        UserRepo ur = UserRepo.getInstance();
+        try {
+            users = ur.getAllUsersFromDatabase();
+        } catch (IOException e) {
+            System.out.println("could not get all users !");
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public Boolean createAccount(String email, String password, String name) {
-//        return User.createUser(name, email, password);
-        return true; // TODO: -> Saray - create the account and return true if successful or false if not.
+    public Boolean createAccount(String email, String password, String name) throws IOException, ParseException {
+        UserRepo ur = new UserRepo();
+        if (ur.checkIfUserExistByEmail(email)) {
+            System.out.println("user is already existed !");
+            return false;
+        }
+        return ur.addUserToData(email, password, name);
     }
 
     public Boolean deleteUserAccount(String email) {
@@ -47,12 +59,10 @@ public class UserService {
                 user.setName(content);
                 break;
             case EDIT_EMAIL:
-                // create a new one with a new email
                 User newUser = User.createUser(user.getName(), content, user.getPassword());
-                // remove the old user from the usersMap
                 users.remove(user.getEmail()); // -> remove also from db (delete its file)
-                ur.deleteUser(user.getEmail());
                 users.put(content, newUser); // -> create a new file with the new email and user
+                ur.deleteUser(user.getEmail());
                 return ur.addUserToData(newUser.getEmail(), newUser.getPassword(), newUser.getName());
             default:
                 throw new IllegalArgumentException("Such action is not possible!");
