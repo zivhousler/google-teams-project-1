@@ -44,7 +44,8 @@ public class UserController {
     public Boolean manipulateUserData(String token, Actions type, String content) {
 //        if (!isValidData(content)) return null; // TODO: -> Fadi this is you. You need to make it method generic to check whatever content is send to this function.
         AuthService as = AuthService.getInstance();
-        if (!as.validateUser(token)) return false;
+        String userEmailByToken = as.validateUser(token);
+        if (userEmailByToken == null) return false;
 
         UserService us = UserService.getInstance();
         if (type == Actions.DELETE_USER) return us.deleteUserAccount(content);

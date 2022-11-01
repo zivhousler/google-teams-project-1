@@ -51,11 +51,11 @@ public class AuthService {
         return token;
     }
 
-    public Boolean validateUser(String token) {
+    public String validateUser(String token) {
         // make sure there is only one instance of this token in the map:
         Integer instances = usersTokens.values().stream().filter(userToken -> token.equals(userToken)).toArray().length;
-        if (instances == 1) return true;
-        return false;
+        if (instances == 1) return usersTokens.values().stream().filter(userToken -> token.equals(userToken)).findFirst().get();
+        return null;
 
     }
 }
