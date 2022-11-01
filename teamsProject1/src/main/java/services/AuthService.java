@@ -57,9 +57,9 @@ public class AuthService {
         Integer instances = usersTokens.values().stream().filter(userToken -> token.equals(userToken)).toArray().length;
         if (instances == 1) return Objects.requireNonNull(getEmailByToken(token));
         return null;
-
     }
 
+<<<<<<< HEAD
     public String getEmailByToken(String token){
         String email = null;
         Iterator<Map.Entry<String,String>> iterator = usersTokens.entrySet().iterator();
@@ -71,4 +71,23 @@ public class AuthService {
         }
         return email;
     }
+=======
+    public boolean updateEmailForToken(String token, String newEmail){
+        if(usersTokens.values().stream().filter(userToken -> token.equals(userToken)).toArray().length <= 0)
+            throw new IllegalArgumentException("Such token doesn't exist");
+        String oldEmail = null;
+        Iterator<Map.Entry<String,String>> iterator = usersTokens.entrySet().iterator();
+        while(iterator.hasNext()){
+            Map.Entry<String,String> entry = iterator.next();
+            if(entry.getValue() == token){
+                oldEmail = entry.getKey();
+            }
+        }
+        if(oldEmail == null) throw new IllegalArgumentException("Couldn't find such an email");
+        usersTokens.remove(oldEmail);
+        usersTokens.put(newEmail, token);
+        return true;
+    }
+
+>>>>>>> 550a4da5171370f1f17aceb2a45c6cfb2008753c
 }
