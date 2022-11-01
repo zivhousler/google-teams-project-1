@@ -34,6 +34,7 @@ public class Main {
         System.out.println(token);
 
         try{
+            //
             uc.manipulateUserData(token, Actions.EDIT_PW, password); //
             uc.manipulateUserData(token, Actions.EDIT_NAME, name);   // TODO: implement enum function
             uc.manipulateUserData(token, Actions.EDIT_EMAIL, email); //
