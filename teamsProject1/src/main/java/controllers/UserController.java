@@ -9,6 +9,7 @@ package controllers;
 import services.AuthService;
 import services.UserService;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -41,7 +42,7 @@ public class UserController {
         return true; // TODO: -> Fadi this is you.
     }
 
-    public Boolean manipulateUserData(String token, Actions type, String content) {
+    public Boolean manipulateUserData(String token, Actions type, String content) throws IOException, IllegalAccessException {
 //        if (!isValidData(content)) return null; // TODO: -> Fadi this is you. You need to make it method generic to check whatever content is send to this function.
         AuthService as = AuthService.getInstance();
         String userEmailByToken = as.validateUser(token);
@@ -49,7 +50,7 @@ public class UserController {
 
         UserService us = UserService.getInstance();
         if (type == Actions.DELETE_USER) return us.deleteUserAccount(content);
-        return us.updateAccountInformaion(type, content);
+        return us.updateAccountInformaion(type, content ,userEmailByToken);
     }
 
 //    public Boolean createNewAccount(String name, String email, String password) {

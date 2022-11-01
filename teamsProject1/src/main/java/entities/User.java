@@ -6,10 +6,17 @@ import java.time.LocalDate;
 
 public class User {
 
-    private final String name;
+    private String name;
     private final String email;
     private String password;
     private final LocalDate creationDate;
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
 
     private User(String name, String email, String password) {
         this.name = name;
@@ -29,7 +36,7 @@ public class User {
     public String getName() {
         return name;
     }
-
+    public String getPassword(){ return password;}
     public String getEmail() {
         return email;
     }

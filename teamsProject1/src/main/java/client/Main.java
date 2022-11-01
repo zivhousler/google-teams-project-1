@@ -33,11 +33,15 @@ public class Main {
         String token = ac.loginUser(email, password);
         System.out.println(token);
 
-        uc.manipulateUserData(token, Actions.EDIT_PW, password); //
-        uc.manipulateUserData(token, Actions.EDIT_NAME, name);   // TODO: implement enum function
-        uc.manipulateUserData(token, Actions.EDIT_EMAIL, email); //
+        try{
+            uc.manipulateUserData(token, Actions.EDIT_PW, password); //
+            uc.manipulateUserData(token, Actions.EDIT_NAME, name);   // TODO: implement enum function
+            uc.manipulateUserData(token, Actions.EDIT_EMAIL, email); //
 
-        uc.manipulateUserData(token, Actions.DELETE_USER, email);
+            uc.manipulateUserData(token, Actions.DELETE_USER, email);
+        } catch(Exception e){
+            System.out.println(e);
+        }
 
         // // AuthController class has to receive the data from the client, validate it in order to check
         // // if it answers the regex from email and password.

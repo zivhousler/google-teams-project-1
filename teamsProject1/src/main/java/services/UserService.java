@@ -4,6 +4,7 @@ import controllers.Actions;
 import databases.UserRepo;
 import entities.User;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -25,30 +26,39 @@ public class UserService {
         users = new HashMap<>(); // TODO: -> need to draw all users from our files!!!
     }
 
-    public Boolean createAccount(String email, String password, String name){
+    public Boolean createAccount(String email, String password, String name) {
 //        return User.createUser(name, email, password);
         return true; // TODO: -> Saray - create the account and return true if successful or false if not.
     }
 
-    public Boolean deleteUserAccount(String email){
+    public Boolean deleteUserAccount(String email) {
         // delete the file answering the relevant email name
         return true;
     }
 
-    public Boolean updateAccountInformaion(Actions type, String content){
+    public Boolean updateAccountInformaion(Actions type, String content, String email) throws IllegalAccessException, IOException {
         UserRepo ur = UserRepo.getInstance();
+        User user = users.get(email); // -> user.email, user.newName, user.newPw (current)
         switch (type) {
             case EDIT_PW:
+                user.setPassword(content);
                 break;
             case EDIT_NAME:
+                user.setName(content);
                 break;
             case EDIT_EMAIL:
-//                ur.editUserInfo();
-                break;
+                // create a new one with a new email
+                User newUser = User.createUser(user.getName(), content, user.getPassword());
+                // remove the old user from the usersMap
+                users.remove(user.getEmail()); // -> remove also from db (delete its file)
+                ur.deleteUser(user.getEmail());
+                users.put(content, newUser); // -> create a new file with the new email and user
+                return ur.addUserToData(newUser.getEmail(), newUser.getPassword(), newUser.getName());
             default:
                 throw new IllegalArgumentException("Such action is not possible!");
         }
-        return true; // TODO: -> Saray - edit the account and return true if successful or false if not.
+        users.put(user.getEmail(), user);
+        return ur.updateUser(user);
     }
 
 //    public void addUserToDB(String id, String email, String password) throws IllegalAccessException {
