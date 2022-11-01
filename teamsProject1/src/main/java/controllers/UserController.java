@@ -33,9 +33,6 @@ public class UserController {
 
         UserService us = UserService.getInstance();
         return Objects.requireNonNull(us.createAccount(email, password, name));
-
-        //   AuthService as = AuthService.getInstance();
-        //   return as.authUser(email); // TODO: -> do we need to return a token on account creation?
     }
 
     public Boolean isValidData(String email, String password, String name) {
@@ -50,7 +47,11 @@ public class UserController {
 
         UserService us = UserService.getInstance();
         if (type == Actions.DELETE_USER) return us.deleteUserAccount(content);
-        return us.updateAccountInformaion(type, content ,userEmailByToken);
+        Boolean response = us.updateAccountInformaion(type, content, userEmailByToken);
+        if (response && type == Actions.EDIT_EMAIL) {
+            return as.updateEmailForToken(token, content);
+        }
+        return response;
     }
 
 //    public Boolean createNewAccount(String name, String email, String password) {

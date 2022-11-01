@@ -5,6 +5,7 @@ import databases.UserRepo;
 import utils.RandomData;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class AuthService {
@@ -56,6 +57,23 @@ public class AuthService {
         Integer instances = usersTokens.values().stream().filter(userToken -> token.equals(userToken)).toArray().length;
         if (instances == 1) return usersTokens.values().stream().filter(userToken -> token.equals(userToken)).findFirst().get();
         return null;
-
     }
+
+    public boolean updateEmailForToken(String token, String newEmail){
+        if(usersTokens.values().stream().filter(userToken -> token.equals(userToken)).toArray().length <= 0)
+            throw new IllegalArgumentException("Such token doesn't exist");
+        String oldEmail = null;
+        Iterator<Map.Entry<String,String>> iterator = usersTokens.entrySet().iterator();
+        while(iterator.hasNext()){
+            Map.Entry<String,String> entry = iterator.next();
+            if(entry.getValue() == token){
+                oldEmail = entry.getKey();
+            }
+        }
+        if(oldEmail == null) throw new IllegalArgumentException("Couldn't find such an email");
+        usersTokens.remove(oldEmail);
+        usersTokens.put(newEmail, token);
+        return true;
+    }
+
 }
