@@ -7,10 +7,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -71,7 +68,7 @@ public class UserRepo {
     public boolean verifyUserInfo(String email, String password) throws IOException, ParseException {
         Map<String, User> allAsers = getAllUsersFromDatabase();
         User user = allAsers.get(email);
-        if(user == null) return false;
+        if (user == null) return false;
         return user.getPassword().equals(password);
     }
 
@@ -80,15 +77,17 @@ public class UserRepo {
         writeToFile(filename, gson.toJson(content));
     }
 
-    public  Map<String, User> getAllUsersFromDatabase() throws IOException, ParseException {
+    public Map<String, User> getAllUsersFromDatabase() throws IOException, ParseException {
         Map<String, User> usersMap = new HashMap<>(); // <email, User>
         Path dir = Paths.get(".\\teamsProject1\\src\\main\\java\\databases\\userDB\\");
         JSONParser jsonParser = new JSONParser();
+        DirectoryStream<Path> stream = Files.newDirectoryStream(dir, "*.json");
 
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, "*.json")) {
+        try {
+            FileReader reader = null;
             for (Path p : stream) {
 
-                FileReader reader = new FileReader(".\\teamsProject1\\src\\main\\java\\databases\\userDB\\" + p.getFileName().toFile());
+                reader = new FileReader(".\\teamsProject1\\src\\main\\java\\databases\\userDB\\" + p.getFileName().toFile());
                 Object obj = jsonParser.parse(reader);
 
                 JSONParser parser = new JSONParser();
@@ -98,7 +97,11 @@ public class UserRepo {
                 usersMap.put(user.getEmail(), user);
                 reader.close();
             }
+
+        } catch (Exception e) {
+            return usersMap;
         }
+
         return usersMap;
     }
 

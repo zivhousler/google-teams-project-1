@@ -36,21 +36,16 @@ public class Main {
         String newEmail = "email@email.com";
 
         try {
-
-            System.out.println(uc.createAccount(email, password, name));
+            uc.createAccount(email, password, name);
             String token = Objects.requireNonNull(ac.loginUser(email, password));
             System.out.println("token: " + token);
 
-            uc.manipulateUserData(token, Actions.EDIT_PW, newPassword); //
-            uc.manipulateUserData(token, Actions.EDIT_NAME, name);      // TODO: implement enum function
-            uc.manipulateUserData(token, Actions.EDIT_EMAIL, email);    //
+//            uc.manipulateUserData(token, Actions.EDIT_PW, newPassword); //
+//            uc.manipulateUserData(token, Actions.EDIT_NAME, name);      // TODO: implement enum function
+//            uc.manipulateUserData(token, Actions.EDIT_EMAIL, email);    //
             uc.manipulateUserData(token, Actions.DELETE_USER, email);
 
-        } catch (IOException e) {
-            System.out.println(e);
-        } catch (IllegalAccessException e) {
-            System.out.println(e);
-        } catch (NullPointerException e) {
+        } catch(Exception e){
             System.out.println(e);
         }
 

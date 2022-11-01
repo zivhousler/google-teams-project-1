@@ -24,8 +24,10 @@ public class AuthController {
     public String loginUser(String email, String password) throws IOException, ParseException {
 //          isValidData(email, password) -> true/false -> throw new exception if needed TODO: fadi's validation
         AuthService as = AuthService.getInstance();
-        if (!as.validateUserLogin(email, password)) {
-            return null;
+        boolean isEqual = as.validateUserLogin(email, password);
+        if (!isEqual) {
+            System.out.println("AuthController-loginUser: Passwords are not equal !");
+            throw new IllegalArgumentException("The given password didn't match to the database");
         }
         return Objects.requireNonNull(as.giveTokenToUser(email));
     }

@@ -59,7 +59,7 @@ public class AuthService {
         return null;
     }
 
-<<<<<<< HEAD
+
     public String getEmailByToken(String token){
         String email = null;
         Iterator<Map.Entry<String,String>> iterator = usersTokens.entrySet().iterator();
@@ -71,7 +71,7 @@ public class AuthService {
         }
         return email;
     }
-=======
+
     public boolean updateEmailForToken(String token, String newEmail){
         if(usersTokens.values().stream().filter(userToken -> token.equals(userToken)).toArray().length <= 0)
             throw new IllegalArgumentException("Such token doesn't exist");
@@ -89,5 +89,5 @@ public class AuthService {
         return true;
     }
 
->>>>>>> 550a4da5171370f1f17aceb2a45c6cfb2008753c
+
 }

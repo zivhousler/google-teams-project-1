@@ -64,15 +64,15 @@ public class UserController {
 
         UserService us = UserService.getInstance();
         if (type == Actions.DELETE_USER) return us.deleteUserAccount(content);
-<<<<<<< HEAD
-        return us.updateAccountInformaion(type, content, userEmailByToken);
-=======
+
+        //return us.updateAccountInformaion(type, content, userEmailByToken);
+
         Boolean response = us.updateAccountInformaion(type, content, userEmailByToken);
         if (response && type == Actions.EDIT_EMAIL) {
             return as.updateEmailForToken(token, content);
         }
         return response;
->>>>>>> 550a4da5171370f1f17aceb2a45c6cfb2008753c
+
     }
 
     private boolean emailValidator(String emailAddress) {

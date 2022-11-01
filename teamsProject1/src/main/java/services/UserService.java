@@ -44,7 +44,8 @@ public class UserService {
     }
 
     public Boolean deleteUserAccount(String email) {
-        // delete the file answering the relevant email name
+        UserRepo ur = UserRepo.getInstance();
+        ur.deleteUser(email);
         return true;
     }
 
